@@ -8,9 +8,11 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	public Text countText;
 	public Text winText;
+	public float brakeSpeed;
 
 	private Rigidbody rb;
 	private int count;
+	private bool win;
 
 	void Start () 
 	{
@@ -18,16 +20,25 @@ public class PlayerController : MonoBehaviour {
 		count = 0;
 		SetCountText ();
 		winText.text = "";
+		win = false;
 	}
 		
     void FixedUpdate ()
     {
+		if (win) {
+			rb.AddForce (-brakeSpeed * rb.velocity);
+		}
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVerticle = Input.GetAxis("Vertical");
 
 		Vector3 movement = new Vector3 (moveHorizontal, 0, moveVerticle);
+		if (!win) {
+			rb.AddForce (movement * speed);
+			if (Input.GetKey (KeyCode.Space)) {
+				rb.AddForce (-brakeSpeed * rb.velocity);
+			}
+		}
 
-		rb.AddForce (movement * speed);
     }
 
 	void OnTriggerEnter (Collider other)
@@ -44,6 +55,7 @@ public class PlayerController : MonoBehaviour {
 		countText.text = "Count: " + count.ToString ();
 		if (count >= 12) {
 			winText.text = "You win!";
+			win = true;
 		}
 	}
 }

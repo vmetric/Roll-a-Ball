@@ -1234,9 +1234,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c2d2a9ff768f8478f4874b39167043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 11
   countText: {fileID: 884617306}
   winText: {fileID: 1086405894}
+  brakeSpeed: 1
 --- !u!54 &1256773454
 Rigidbody:
   m_ObjectHideFlags: 0
